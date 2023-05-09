@@ -6,8 +6,8 @@ from datetime import datetime
 import matplotlib as plt
 
 current_round = 9
-os.chdir(fr'D:\Users\Herman\Desktop\Python\Checkthepunt\Round_{current_round}')
-fixture2023_df = pd.read_excel(r"D:\Users\Herman\Desktop\Python\Checkthepunt\AFLFixtures2023.xlsx")
+os.chdir(fr'https://raw.githubusercontent.com/hermclane/AFL/main/Round_{current_round}')
+fixture2023_df = pd.read_excel(r"https://raw.githubusercontent.com/hermclane/AFL/main/AFLFixtures2023.xlsx")
 current_round_fixture_df = fixture2023_df[fixture2023_df["Round Number"] == current_round]
 
 # Get a list of folders in the current directory
@@ -22,7 +22,7 @@ sorted_folder_list = [folder_name for match_str in match_list for folder_name in
 st.set_page_config(layout='wide')
 
 # Set the title of the sidebar
-image = Image.open(r'D:\Users\Herman\Desktop\Python\Checkthepunt\wizard.png')
+image = Image.open(r'https://github.com/hermclane/AFL/blob/84e4af274f607afd7efaaa8ac50b510a8ff90d14/wizard.png')
 st.sidebar.image(image, use_column_width=True)
 st.sidebar.title(f'Current Round: {current_round}')
 
