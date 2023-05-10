@@ -143,12 +143,16 @@ for csv_name, csv_df in csv_dict.items():
             if home_team in csv_name:
                 st.subheader(csv_name)
                 df = csv_df.sort_values(by=['Disposals'], ascending=False)
-                st.dataframe(df.style.background_gradient(axis=0, cmap=cmap), height=1000, use_container_width=True)
+                st.dataframe(df.style.format({"Disposals": "{:.2f}", "Goals": "{:.2f}", "Behinds": "{:.2f}", 
+                                              "Frees For":  "{:.2f}"}).background_gradient(axis=0, cmap=cmap), 
+                             height=1000, use_container_width=True)
         with away_team_tab:
             if away_team in csv_name:
                 st.subheader(csv_name)
                 df = csv_df.sort_values(by=['Disposals'], ascending=False)
-                st.dataframe(df.style.background_gradient(axis=0, cmap=cmap), height=1000, use_container_width=True)
+                st.dataframe(df.style.format({"Disposals": "{:.2f}", "Goals": "{:.2f}", "Behinds": "{:.2f}", 
+                                              "Frees For":  "{:.2f}"}).background_gradient(axis=0, cmap=cmap), 
+                             height=1000, use_container_width=True)
 
 
 
