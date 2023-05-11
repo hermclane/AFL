@@ -16,7 +16,7 @@ current_round = 9
 # HIDE ACCESS KEY
 load_dotenv()
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
-g = Github(st.secrets["clientID"], st.secrets["clientsecret"])
+g = Github(st.secrets["clientid"], st.secrets["clientsecret"])
 
 st.set_page_config(layout='wide')
 
