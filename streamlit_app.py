@@ -11,15 +11,16 @@ import os
 from dotenv import load_dotenv
 
 # CHANGE ROUND EVERY WEEK
-current_round = 11
+current_round = 12
 
 # HIDE ACCESS KEY
 load_dotenv()
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
-# g = Github(GITHUB_TOKEN)
 g = Github(st.secrets.clientid.clientid, st.secrets.clientsecret.clientsecret)
 
-st.set_page_config(layout='wide')
+st.set_page_config(page_title="Unseen Stats",
+                   page_icon="🔮",
+                   layout='wide')
 
 @st.cache_resource
 def open_repo():
@@ -37,9 +38,8 @@ def read_fixture2023():
     fixture2023_df = pd.read_excel(r"https://raw.githubusercontent.com/hermclane/AFL/main/AFLFixtures2023.xlsx")
     return fixture2023_df
 
-
+# Make Dataframes
 fixture2023_df = read_fixture2023()
-
 current_round_fixture_df = fixture2023_df[fixture2023_df["Round Number"] == current_round]
 
 # Get the list of match strings from the "Match String" column of the current_round_fixture_df DataFrame
