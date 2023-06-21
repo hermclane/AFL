@@ -134,7 +134,7 @@ csv_dict = load_csv_data(repo, selected_folder_path)
 
 # Display DFs
 st.header(header_display)
-chosen_type = st.selectbox("Game Averages", ("Season Average", "Last 5 Average", "Last 3 Average"))
+chosen_type = st.selectbox("Game Averages", ("Season Average", "Last 10 Average", "Last 5 Average", "Last 3 Average"))
 home_team_tab, away_team_tab = st.tabs([f'Home: {home_team}', f'Away: {away_team}'])
 
 # Display each CSV file as a table
