@@ -11,7 +11,7 @@ import os
 from dotenv import load_dotenv
 
 # CHANGE ROUND EVERY WEEK
-current_round = 16
+current_round = 17
 
 # HIDE ACCESS KEY
 load_dotenv()
