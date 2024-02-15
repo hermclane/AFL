@@ -37,12 +37,18 @@ def read_fixture():
     # load fixture data once
     fixture_df = pd.read_excel(r"https://raw.githubusercontent.com/hermclane/AFL/main/AFLFixtures2023.xlsx")
     return fixture_df
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4e848353b5056a524e6fad477414cc42c716ab9a
 
 # Make Dataframes
 fixture_df = read_fixture()
 current_round_fixture_df = fixture_df[fixture_df["Round Number"] == CURRENT_ROUND]
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4e848353b5056a524e6fad477414cc42c716ab9a
 # Get the list of match strings from the "Match String" column of the current_round_fixture_df DataFrame
 match_list = current_round_fixture_df["Match String"].tolist()
 
