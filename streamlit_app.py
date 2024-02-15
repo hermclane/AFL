@@ -11,7 +11,7 @@ import os
 from dotenv import load_dotenv
 
 # CHANGE ROUND EVERY WEEK
-current_round = 23
+CURRENT_ROUND = 1
 
 # HIDE ACCESS KEY
 load_dotenv()
@@ -40,12 +40,12 @@ def read_fixture2023():
 
 # Make Dataframes
 fixture2023_df = read_fixture2023()
-current_round_fixture_df = fixture2023_df[fixture2023_df["Round Number"] == current_round]
+current_round_fixture_df = fixture2023_df[fixture2023_df["Round Number"] == CURRENT_ROUND]
 
 # Get the list of match strings from the "Match String" column of the current_round_fixture_df DataFrame
 match_list = current_round_fixture_df["Match String"].tolist()
 
-parent_folder_path = f"Round_{current_round}"
+parent_folder_path = f"Round_{CURRENT_ROUND}"
 
 
 @st.cache_data
@@ -64,7 +64,7 @@ sorted_folder_list = [folder_name for match_str in match_list for folder_name in
 
 @st.cache_data
 def get_image():
-    image_url = 'https://raw.githubusercontent.com/hermclane/AFL/main/wizard.png'
+    image_url = 'https://raw.githubusercontent.com/hermclane/AFL/main/Logo.png'
     response = requests.get(image_url)
     image = Image.open(BytesIO(response.content))
     return image
@@ -75,7 +75,7 @@ image = get_image()
 st.sidebar.image(image, use_column_width=True)
 
 # Set the title of the sidebar
-st.sidebar.title(f'Current Round: {current_round}')
+st.sidebar.title(f'Current Round: {CURRENT_ROUND}')
 
 # Create an empty dictionary to store the folder names and corresponding team string
 folder_team_dict = {}
