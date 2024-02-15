@@ -33,15 +33,14 @@ repo = open_repo()
 
 
 @st.cache_data
-def read_fixture2023():
+def read_fixture():
     # load fixture data once
-    fixture2023_df = pd.read_excel(r"https://raw.githubusercontent.com/hermclane/AFL/main/AFLFixtures2023.xlsx")
-    return fixture2023_df
+    fixture_df = pd.read_excel(r"https://raw.githubusercontent.com/hermclane/AFL/main/AFLFixtures2023.xlsx")
+    return fixture_df
 
 # Make Dataframes
-fixture2023_df = read_fixture2023()
-current_round_fixture_df = fixture2023_df[fixture2023_df["Round Number"] == CURRENT_ROUND]
-
+fixture_df = read_fixture2023()
+current_round_fixture_df = fixture_df[fixture_df["Round Number"] == CURRENT_ROUND]
 # Get the list of match strings from the "Match String" column of the current_round_fixture_df DataFrame
 match_list = current_round_fixture_df["Match String"].tolist()
 
