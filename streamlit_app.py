@@ -39,7 +39,7 @@ def read_fixture():
     return fixture_df
 
 # Make Dataframes
-fixture_df = read_fixture2023()
+fixture_df = read_fixture()
 current_round_fixture_df = fixture_df[fixture_df["Round Number"] == CURRENT_ROUND]
 # Get the list of match strings from the "Match String" column of the current_round_fixture_df DataFrame
 match_list = current_round_fixture_df["Match String"].tolist()
