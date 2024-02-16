@@ -11,7 +11,7 @@ import os
 from dotenv import load_dotenv
 
 # CHANGE ROUND EVERY WEEK
-CURRENT_ROUND = 2
+CURRENT_ROUND = 0
 
 # HIDE ACCESS KEY
 load_dotenv()
@@ -35,7 +35,7 @@ repo = open_repo()
 @st.cache_data
 def read_fixture():
     # load fixture data once
-    fixture_df = pd.read_excel(r"https://raw.githubusercontent.com/hermclane/AFL/main/AFLFixtures2023.xlsx")
+    fixture_df = pd.read_excel(r"https://raw.githubusercontent.com/hermclane/AFL/main/AFLFixtures2024.xlsx")
     return fixture_df
 
 # Make Dataframes
