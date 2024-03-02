@@ -94,7 +94,7 @@ def get_players_df():
 
 players_df = get_players_df()
 
-@st.cache
+@st.cache_data
 def get_previous_H2H_games(repo, parent_folder_path):
     previous_H2H_csv = None
     for file in repo.get_contents(parent_folder_path):
