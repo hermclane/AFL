@@ -434,19 +434,21 @@ for csv_name, csv_df in csv_dict.items():
                     if home_team in csv_name2:
                         # Logic for home team DataFrame
                         df["Year"] = df["Year"].astype(str)
-                        current_player_away_prev_vs_opponent_df = df[df["Player Name"] == selected_player_home]
+                        current_player_home_prev_vs_opponent_df = df[df["Player Name"] == selected_player_home]
+                        current_player_home_prev_vs_opponent_average_disposals = current_player_home_prev_vs_opponent_df["D"].mean()
+                        current_player_home_prev_vs_opponent_average_goals = current_player_home_prev_vs_opponent_df["G"].mean()
 
                         # Rearrange columns for clarity
-                        columns_except_year = [col for col in current_player_away_prev_vs_opponent_df.columns if col != 'Year']
+                        columns_except_year = [col for col in current_player_home_prev_vs_opponent_df.columns if col != 'Year']
                         columns_except_year.insert(1, 'Year')
-                        current_player_away_prev_vs_opponent_df = current_player_away_prev_vs_opponent_df[columns_except_year]
+                        current_player_home_prev_vs_opponent_df = current_player_home_prev_vs_opponent_df[columns_except_year]
 
-                        columns_to_display_h2h = [col for col in current_player_away_prev_vs_opponent_df.columns if
+                        columns_to_display_h2h = [col for col in current_player_home_prev_vs_opponent_df.columns if
                                                   col not in exclude_columns]
 
                         # Display the select player previous games dataframe
-                        if not current_player_away_prev_vs_opponent_df.empty:
-                            st.dataframe(current_player_away_prev_vs_opponent_df[columns_to_display_h2h].style.format({'Date': lambda x: x.strftime('%d-%m-%Y')})
+                        if not current_player_home_prev_vs_opponent_df.empty:
+                            st.dataframe(current_player_home_prev_vs_opponent_df[columns_to_display_h2h].style.format({'Date': lambda x: x.strftime('%d-%m-%Y')})
                                          .background_gradient(axis=0, cmap=cmap), use_container_width=True,
                                          hide_index=True)
                         else:
@@ -461,7 +463,7 @@ for csv_name, csv_df in csv_dict.items():
                         )
 
                         # Disposal Chart using Date for x-axis
-                        disposal_chart = alt.Chart(current_player_away_prev_vs_opponent_df).mark_point(
+                        disposal_chart = alt.Chart(current_player_home_prev_vs_opponent_df).mark_point(
                             size=300,
                             color="#488f31",
                             strokeWidth=4,
@@ -479,7 +481,7 @@ for csv_name, csv_df in csv_dict.items():
                         )
 
                         # Disposal Line Chart
-                        disposal_line_chart = alt.Chart(current_player_away_prev_vs_opponent_df).mark_line(
+                        disposal_line_chart = alt.Chart(current_player_home_prev_vs_opponent_df).mark_line(
                             color="#488f31",  # Adjust color to match your disposal points
                             strokeWidth=3  # Adjust strokeWidth to match your styling
                         ).encode(
@@ -489,7 +491,7 @@ for csv_name, csv_df in csv_dict.items():
 
 
                         # Goals Chart using Date for x-axis
-                        goals_chart = alt.Chart(current_player_away_prev_vs_opponent_df).mark_point(
+                        goals_chart = alt.Chart(current_player_home_prev_vs_opponent_df).mark_point(
                             size=300,
                             color="#488f31",
                             strokeWidth=4,
@@ -509,7 +511,7 @@ for csv_name, csv_df in csv_dict.items():
                         )
 
                         # Goals Line Chart
-                        goals_line_chart = alt.Chart(current_player_away_prev_vs_opponent_df).mark_line(
+                        goals_line_chart = alt.Chart(current_player_home_prev_vs_opponent_df).mark_line(
                             color="#488f31",  # You can choose a different color for distinction
                             strokeWidth=3  # Match the point border thickness
                         ).encode(
@@ -520,7 +522,7 @@ for csv_name, csv_df in csv_dict.items():
                         )
 
                         # Behinds Chart using Date for x-axis
-                        behinds_chart = alt.Chart(current_player_away_prev_vs_opponent_df).mark_circle(size=100, color="#f54242").encode(
+                        behinds_chart = alt.Chart(current_player_home_prev_vs_opponent_df).mark_circle(size=100, color="#f54242").encode(
                             x=alt.X('Date:T', axis=custom_axis,
                                     scale=alt.Scale(domainMin=2021, domainMax=2025, nice=False)),
                             # Same custom axis for behinds
@@ -535,23 +537,23 @@ for csv_name, csv_df in csv_dict.items():
 
                         # Create a rule mark for the average goals
                         average_disposals_rule = alt.Chart(
-                            pd.DataFrame({f'{chosen_type} Disposals': [
-                                current_player_home_chosen_average_disposals]})).mark_rule(
+                            pd.DataFrame({f'Average Disposals vs {away_team}': [
+                                current_player_home_prev_vs_opponent_average_disposals]})).mark_rule(
                             color="#AEC6CF",
                             strokeWidth=2.5,
                             strokeDash=[5, 5]
                         ).encode(
-                            y=f'{chosen_type} Disposals:Q'
+                            y=f'Average Disposals vs {away_team}:Q'
                         )
 
                         # Create a rule mark for the average goals
                         average_goals_rule = alt.Chart(pd.DataFrame(
-                            {f'{chosen_type} Goals': [current_player_home_chosen_average_goals]})).mark_rule(
+                            {f'Average Goals vs {away_team}': [current_player_home_prev_vs_opponent_average_goals]})).mark_rule(
                             color="#AEC6CF",
                             strokeWidth=2.5,
                             strokeDash=[5, 5]
                         ).encode(
-                            y=f'{chosen_type} Goals:Q'
+                            y=f'Average Goals vs {away_team}:Q'
                         )
 
                         # Combine disposal points, lines, average line
@@ -773,6 +775,9 @@ for csv_name, csv_df in csv_dict.items():
                         columns_to_display_h2h = [col for col in current_player_away_prev_vs_opponent_df.columns if
                                                   col not in exclude_columns]
 
+                        current_player_away_prev_vs_opponent_average_disposals = current_player_away_prev_vs_opponent_df["D"].mean()
+                        current_player_away_prev_vs_opponent_average_goals = current_player_away_prev_vs_opponent_df["G"].mean()
+
                         # Display the select player previous games dataframe
                         if not current_player_away_prev_vs_opponent_df.empty:
                             st.dataframe(current_player_away_prev_vs_opponent_df[columns_to_display_h2h].style.format(
@@ -867,23 +872,23 @@ for csv_name, csv_df in csv_dict.items():
 
                         # Create a rule mark for the average goals
                         average_disposals_rule = alt.Chart(
-                            pd.DataFrame({f'{chosen_type} Disposals': [
-                                current_player_away_chosen_average_disposals]})).mark_rule(
+                            pd.DataFrame({f'Average Disposals vs {home_team}': [
+                                current_player_away_prev_vs_opponent_average_disposals]})).mark_rule(
                             color="#AEC6CF",
                             strokeWidth=2.5,
                             strokeDash=[5, 5]
                         ).encode(
-                            y=f'{chosen_type} Disposals:Q'
+                            y=f'Average Disposals vs {home_team}:Q'
                         )
 
                         # Create a rule mark for the average goals
                         average_goals_rule = alt.Chart(pd.DataFrame(
-                            {f'{chosen_type} Goals': [current_player_away_chosen_average_goals]})).mark_rule(
+                            {f'Average Goals vs {home_team}': [current_player_away_prev_vs_opponent_average_goals]})).mark_rule(
                             color="#AEC6CF",
                             strokeWidth=2.5,
                             strokeDash=[5, 5]
                         ).encode(
-                            y=f'{chosen_type} Goals:Q'
+                            y=f'Average Goals vs {home_team}:Q'
                         )
 
                         # Combine disposal points, lines, average line
