@@ -435,8 +435,8 @@ for csv_name, csv_df in csv_dict.items():
                         # Logic for home team DataFrame
                         df["Year"] = df["Year"].astype(str)
                         current_player_home_prev_vs_opponent_df = df[df["Player Name"] == selected_player_home]
-                        current_player_home_prev_vs_opponent_average_disposals = current_player_home_prev_vs_opponent_df["D"].mean()
-                        current_player_home_prev_vs_opponent_average_goals = current_player_home_prev_vs_opponent_df["G"].mean()
+                        current_player_home_prev_vs_opponent_average_disposals = round(current_player_home_prev_vs_opponent_df["D"].mean(), 2)
+                        current_player_home_prev_vs_opponent_average_goals = round(current_player_home_prev_vs_opponent_df["G"].mean(), 2)
 
                         # Rearrange columns for clarity
                         columns_except_year = [col for col in current_player_home_prev_vs_opponent_df.columns if col != 'Year']
@@ -775,8 +775,8 @@ for csv_name, csv_df in csv_dict.items():
                         columns_to_display_h2h = [col for col in current_player_away_prev_vs_opponent_df.columns if
                                                   col not in exclude_columns]
 
-                        current_player_away_prev_vs_opponent_average_disposals = current_player_away_prev_vs_opponent_df["D"].mean()
-                        current_player_away_prev_vs_opponent_average_goals = current_player_away_prev_vs_opponent_df["G"].mean()
+                        current_player_away_prev_vs_opponent_average_disposals = round(current_player_away_prev_vs_opponent_df["D"].mean(), 2)
+                        current_player_away_prev_vs_opponent_average_goals = round(current_player_away_prev_vs_opponent_df["G"].mean(), 2)
 
                         # Display the select player previous games dataframe
                         if not current_player_away_prev_vs_opponent_df.empty:
