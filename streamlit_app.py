@@ -97,7 +97,9 @@ players_df = get_players_df()
 #Load Previous H2H Games
 @st.cache_data
 def get_previous_H2H_games():
-    previous_H2H_csv = pd.read_csv(rf"D:\Users\Herman\Desktop\Python\Checkthepunt\2024\StreamlitUpdate\AFL\{parent_folder_path}/H2H Results.csv")
+    for file in repo.get_contents(parent_folder_path):
+        if file.name.endswith('H2H Results.csv'):
+            previous_H2H_csv = pd.read_csv(file)
     return previous_H2H_csv
 
 previous_H2H_csv = get_previous_H2H_games()
