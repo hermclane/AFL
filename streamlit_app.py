@@ -95,7 +95,7 @@ def get_players_df():
 players_df = get_players_df()
 
 @st.cache_data
-def get_previous_H2H_games(repo, parent_folder_path):
+def get_previous_H2H_games(_repo, parent_folder_path):
     previous_H2H_csv = None
     for file in repo.get_contents(parent_folder_path):
         if file.name.endswith('H2H Results.csv'):
@@ -197,7 +197,8 @@ csv_dict = load_csv_data(repo, selected_folder_path)
 
 
 # Read all H2H Games CSV Data
-def load_player_H2H_data(repo, selected_folder_path):
+@st.cache_data
+def load_player_H2H_data(_repo, selected_folder_path):
     csv_dict_H2H = {}  # Dictionary to store each DataFrame
 
     for file in repo.get_contents(selected_folder_path):
