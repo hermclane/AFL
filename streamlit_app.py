@@ -94,15 +94,17 @@ def get_players_df():
 
 players_df = get_players_df()
 
-#Load Previous H2H Games
-@st.cache_data
-def get_previous_H2H_games():
+@st.cache
+def get_previous_H2H_games(repo, parent_folder_path):
+    previous_H2H_csv = None
     for file in repo.get_contents(parent_folder_path):
         if file.name.endswith('H2H Results.csv'):
-            previous_H2H_csv = pd.read_csv(file)
+            file_content = file.decoded_content
+            previous_H2H_csv = pd.read_csv(BytesIO(file_content))
+            break
     return previous_H2H_csv
 
-previous_H2H_csv = get_previous_H2H_games()
+previous_H2H_csv = get_previous_H2H_games(repo, parent_folder_path)
 
 # Parse and format Last H2H Encounter results
 def parse_team_H2H_data(team, previous_H2H_csv, is_home_team):
