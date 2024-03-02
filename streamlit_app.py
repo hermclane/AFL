@@ -212,7 +212,7 @@ def load_player_H2H_data(repo, selected_folder_path):
     return csv_dict_H2H
 
 
-csv_dict_H2H = load_player_H2H_data(selected_folder_path)
+csv_dict_H2H = load_player_H2H_data(repo, selected_folder_path)
 
 styled_columns = ["Player","Total Games Played", "Highest Dis.", "Lowest Dis.", "Disposals", "Goals", "Behinds",
                   "Frees For", "15 Dis. %", "20 Dis. %", "25 Dis. %", "1 Goal %", "2 Goals %"]
