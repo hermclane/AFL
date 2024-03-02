@@ -197,16 +197,16 @@ csv_dict = load_csv_data(repo, selected_folder_path)
 
 
 # Read all H2H Games CSV Data
-def load_player_H2H_data(_repo, selected_folder_path):
+def load_player_H2H_data(repo, selected_folder_path):
     csv_dict_H2H = {}  # Dictionary to store each DataFrame
 
     for file in repo.get_contents(selected_folder_path):
-        if file.endswith('H2H Games.csv'):
-            file_path = os.path.join(selected_folder_path, file)
-            df = pd.read_csv(file_path, parse_dates=['Date'], dayfirst=True)
+        if file.name.endswith('H2H Games.csv'):
+            file_content = file.decoded_content
+            df = pd.read_csv(BytesIO(file_content), parse_dates=['Date'], dayfirst=True)
 
             # Remove '.csv' from filename for the dictionary key
-            dict_key = file.replace('.csv', '')
+            dict_key = file.name.replace(' H2H Games.csv', '')  # Adjusted to use file.name
             csv_dict_H2H[dict_key] = df
 
     return csv_dict_H2H
