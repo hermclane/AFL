@@ -11,9 +11,8 @@ import os
 from dotenv import load_dotenv
 import altair as alt
 import base64
+import json
 
-# CHANGE ROUND EVERY WEEK
-CURRENT_ROUND = 1
 CURRENT_YEAR = 2024
 
 # HIDE ACCESS KEY
@@ -46,6 +45,15 @@ def open_private_repo():
 repo = open_repo()
 private_repo = open_private_repo()
 
+@st.cache_data
+def get_current_round_from_github():
+    response = requests.get(r"https://raw.githubusercontent.com/hermclane/AFL/main/current_round.json")
+    response.raise_for_status()
+    data = response.json()
+    return data.get('CURRENT_ROUND')
+
+
+CURRENT_ROUND = get_current_round_from_github()
 
 @st.cache_data
 def read_fixture():
