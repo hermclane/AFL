@@ -253,7 +253,7 @@ special_rounds = ['EF', 'QF', 'PF', 'SF', 'GF']
 round_names.extend(special_rounds)
 
 # Display Header
-st.header(header_display)
+st.header("New version out! Head to: https://unseenstats.io")
 
 # Selectbox to choose Averages to display
 chosen_type = st.selectbox("Game Averages", ("Season Average", "Last 10 Average", "Last 5 Average", "Last 3 Average"))
